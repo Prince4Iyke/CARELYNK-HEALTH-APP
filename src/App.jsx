@@ -107,8 +107,8 @@ const HISTORY_TYPE_META = {
    This is in-memory only -- not real authentication. */
 const SEED_ACCOUNT = {
   id: "u1",
-  name: "John Adeyemi",
-  email: "john.a@email.com",
+  name: "Demo Account",
+  email: "demo@email.com",
   password: "Carelynk1",
 };
 
