@@ -146,48 +146,6 @@ function statusColor(status) {
   return COLORS.teal;
 }
 
-function PhoneTopBar({ time = "9:41" }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        padding: "10px 20px 4px",
-        fontSize: 13,
-        fontWeight: 600,
-        color: COLORS.ink,
-      }}
-    >
-      <span>{time}</span>
-      <span style={{ display: "flex", gap: 4, alignItems: "center" }}>
-        <span style={{ fontSize: 11 }}>●●●</span>
-        <span style={{ fontSize: 11 }}>Wi-Fi</span>
-        <span
-          style={{
-            width: 22,
-            height: 11,
-            border: `1.4px solid ${COLORS.ink}`,
-            borderRadius: 2,
-            position: "relative",
-            display: "inline-block",
-          }}
-        >
-          <span
-            style={{
-              position: "absolute",
-              inset: 1.5,
-              right: 3,
-              background: COLORS.ink,
-              borderRadius: 1,
-            }}
-          />
-        </span>
-      </span>
-    </div>
-  );
-}
-
 function ScreenHeader({ title, subtitle, onBack, right, icon }) {
   return (
     <div
@@ -641,7 +599,7 @@ function SplashScreen({ onContinue }) {
         flexDirection: "column",
         alignItems: "center",
         justifyContent: "center",
-        height: "100%",
+        minHeight: "100%",
         gap: 14,
         cursor: "pointer",
       }}
@@ -661,7 +619,7 @@ function SplashScreen({ onContinue }) {
 
 function WelcomeScreen({ navigate }) {
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100%", padding: "20px 24px 28px" }}>
+    <div style={{ display: "flex", flexDirection: "column", minHeight: "100%", padding: "20px 24px 28px" }}>
       <div style={{ display: "flex", flexDirection: "column", alignItems: "center", marginBottom: 20 }}>
         <Logo size={72} />
         <p
@@ -2425,8 +2383,7 @@ export default function HealthPlatform() {
           height: isMobile ? "100dvh" : "min(844px, calc(100dvh - 64px))",
         }}
       >
-        {!isMobile && <PhoneTopBar />}
-        <div style={{ flex: 1, overflowY: "auto", paddingTop: 8, WebkitOverflowScrolling: "touch" }}>
+        <div style={{ flex: 1, overflowY: "auto", paddingTop: 20, WebkitOverflowScrolling: "touch" }}>
           {body}
           <div style={{ height: 8 }} />
         </div>
