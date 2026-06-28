@@ -901,16 +901,22 @@ function SignupScreen({ navigate, onSignup, accountExists }) {
    SCREEN: HOME / DASHBOARD
 --------------------------------------------------------- */
 
-function HomeScreen({ vitals, meds, appointments, navigate, dueCount, account }) {
+function HomeScreen({ vitals, meds, appointments, navigate, dueCount, account, nowTime }) {
   const firstName = account ? account.name.split(" ")[0] : "there";
   const nextMed = meds.find((m) => !m.taken);
+
+  const clock = nowTime || new Date();
+  const hour = clock.getHours();
+  const greeting = hour < 12 ? "Good morning" : hour < 17 ? "Good afternoon" : "Good evening";
+  const dateLabel = clock.toLocaleDateString("en-US", { weekday: "long", month: "short", day: "numeric" });
+
   return (
     <div style={{ padding: "0 20px 24px" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", marginBottom: 18 }}>
         <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
           <Logo size={34} />
           <div>
-            <p style={{ margin: 0, fontSize: 13, color: COLORS.slate }}>Good morning</p>
+            <p style={{ margin: 0, fontSize: 13, color: COLORS.slate }}>{greeting} · {dateLabel}</p>
             <h1 style={{ margin: "2px 0 0", fontSize: 22, fontWeight: 800, color: COLORS.ink }}>Hello, {firstName}</h1>
           </div>
         </div>
@@ -2279,7 +2285,7 @@ export default function HealthPlatform() {
   } else {
     switch (screen) {
       case "home":
-        body = <HomeScreen vitals={vitals} meds={meds} appointments={appointments} navigate={navigate} dueCount={dueMeds.length} account={account} />;
+        body = <HomeScreen vitals={vitals} meds={meds} appointments={appointments} navigate={navigate} dueCount={dueMeds.length} account={account} nowTime={nowTime} />;
         break;
       case "tracker":
         body = <TrackerScreen vitals={vitals} setVitals={setVitals} navigate={navigate} showToast={showToast} addHistoryEntry={addHistoryEntry} />;
@@ -2351,7 +2357,7 @@ export default function HealthPlatform() {
         body = <ProfileScreen navigate={navigate} account={account} onLogout={handleLogout} />;
         break;
       default:
-        body = <HomeScreen vitals={vitals} meds={meds} appointments={appointments} navigate={navigate} dueCount={dueMeds.length} account={account} />;
+        body = <HomeScreen vitals={vitals} meds={meds} appointments={appointments} navigate={navigate} dueCount={dueMeds.length} account={account} nowTime={nowTime} />;
     }
   }
 
